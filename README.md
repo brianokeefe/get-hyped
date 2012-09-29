@@ -18,7 +18,6 @@ Usage
 <code>PLAYLIST</code> can be any playlist or username from hypem.com. Examples include:
 
 <ul>
-	<li>popular</li>
 	<li>latest</li>
 	<li>latest/noremix</li>
 	<li>popular</li>
@@ -37,6 +36,7 @@ TODO
 ----
 <ul>
 	<li>Properly name and tag downloaded MP3 files
+	<li>Allow the user to specify multiple playlists
 	<li>Logging</li>
 	<li>Optional sleep interval between downloads?
 </ul>
