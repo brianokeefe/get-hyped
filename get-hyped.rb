@@ -2,6 +2,7 @@ require 'curb'
 require 'nokogiri'
 require 'json'
 require 'optparse'
+require 'fileutils'
 
 class HypeScraper
 	def initialize(directory, options)
@@ -59,7 +60,7 @@ class HypeScraper
 	end
 
 	def add_to_downloaded(id)
-		File.open("tracks.txt", "a") do |file|
+		File.open("tracks.txt", "a+") do |file|
 			file.write("#{id}\n")
 		end
 	end
@@ -99,6 +100,7 @@ begin
 	if (!File.directory?(directory))
 		Dir.mkdir(directory)
 	end
+	FileUtils.touch("tracks.txt")
 	if (!playlist.nil?)
 		begin
 			HypeScraper.new(directory, options).get_from_playlist(playlist)
@@ -108,7 +110,6 @@ begin
 	else
 		puts "Please specify a playlist."
 	end
-rescue Exception => ex
-	puts "Could not create directoy."
-	puts ex
+rescue
+	puts "Could not write necessary files."
 end

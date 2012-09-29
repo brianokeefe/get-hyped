@@ -37,5 +37,6 @@ TODO
 ----
 <ul>
 	<li>Properly name and tag downloaded MP3 files
+	<li>Logging</li>
 	<li>Optional sleep interval between downloads?
 </ul>
