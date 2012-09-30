@@ -64,7 +64,7 @@ class HypeScraper
 		Mp3Info.open(file_dir) do |mp3|
 			mp3.tag.title = track["song"]
 			mp3.tag.artist = track["artist"]
-			mp3.tag.artist = "Hype Machine"
+			mp3.tag.album = "Hype Machine"
 		end
 	end
 
