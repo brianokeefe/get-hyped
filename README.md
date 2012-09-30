@@ -30,13 +30,13 @@ Usage
 
 Note how the last example included a "/3" to indicate page 3 of the playlist (higher numbered pages contain older songs). For more playlists, you can take a look at the top navigation bar on hypem.com. 
 
-Once invoked, the script will attempt to download all of the MP3 files from the specified playlist into the specified target directory. A list of downloaded tracks will be maintained in <code>tracks.txt</code>; a track that has already been downloaded will not be downloaded again unless you supply the <code>-d</code> argument.
+Once invoked, the script will attempt to download all of the MP3 files from the specified playlist into the specified target directory. A list of downloaded tracks will be maintained in <code>tracks.txt</code>; a track that has already been downloaded will not be downloaded again unless the <code>-d</code> argument is supplied.
 
 TODO
 ----
 <ul>
-	<li>Properly name and tag downloaded MP3 files
 	<li>Allow the user to specify multiple playlists
+	<li>Growl/email notifications</li>
 	<li>Logging</li>
 	<li>Optional sleep interval between downloads?
 </ul>

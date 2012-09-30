@@ -3,6 +3,7 @@ require 'nokogiri'
 require 'json'
 require 'optparse'
 require 'fileutils'
+require 'mp3info'
 
 class HypeScraper
 	def initialize(directory, options)
@@ -54,8 +55,16 @@ class HypeScraper
 	end
 
 	def get_mp3(track, url)
-		File.open("#{@directory}/#{track['id']}.mp3", 'wb') do |file|
+		file_dir = "#{@directory}/#{track['artist']} - #{track['song'].gsub('.', '')}.mp3"
+
+		File.open(file_dir, 'wb') do |file|
 			file.write(curl(url))
+		end
+
+		Mp3Info.open(file_dir) do |mp3|
+			mp3.tag.title = track["song"]
+			mp3.tag.artist = track["artist"]
+			mp3.tag.artist = "Hype Machine"
 		end
 	end
 
