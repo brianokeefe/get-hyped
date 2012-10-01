@@ -38,5 +38,6 @@ TODO
 	<li>Allow the user to specify multiple playlists
 	<li>Growl/email notifications</li>
 	<li>Logging</li>
+	<li>Adjustable timeout values</li>
 	<li>Optional sleep interval between downloads?
 </ul>
