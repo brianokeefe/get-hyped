@@ -12,7 +12,7 @@ class HypeScraper
 			curl.enable_cookies = true
 			curl.cookiejar = "cookies.txt"
 			curl.follow_location = true
-			curl.timeout = 10
+			curl.timeout = 20
 		end
 
 		@directory = directory
@@ -55,6 +55,8 @@ class HypeScraper
 	end
 
 	def get_mp3(track, url)
+		@curl.timeout = 120
+
 		file_dir = "#{@directory}/#{track['artist']} - #{track['song'].gsub('.', '')}.mp3"
 
 		File.open(file_dir, 'wb') do |file|
