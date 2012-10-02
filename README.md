@@ -11,7 +11,7 @@ Run <code>bundle install</code> in the <code>get-hyped</code> directory and you 
 Usage
 -----
 
-<code>ruby get-hyped.rb [OPTION]... [PLAYLIST] [TARGET DIRECTORY]</code>
+<code>ruby get-hyped.rb [OPTION]... [PLAYLIST]</code>
 
         --dupes                      Download tracks even if they've already been downloaded
     -a, --album [ALBUM]              Specify the album MP3 tag for tracks being downloaded
