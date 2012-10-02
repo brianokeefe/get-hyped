@@ -39,5 +39,6 @@ TODO
 	<li>Growl/email notifications</li>
 	<li>Logging</li>
 	<li>Adjustable timeout values</li>
+	<li>Take page number as an argument?</li>
 	<li>Optional sleep interval between downloads?
 </ul>
