@@ -6,7 +6,7 @@ require 'fileutils'
 require 'mp3info'
 
 class HypeScraper
-	def initialize(directory, options)
+	def initialize(options)
 		@curl = Curl::Easy.new do |curl|
 			curl.headers["User-Agent"] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_2) AppleWebKit/537.4 (KHTML, like Gecko) Chrome/22.0.1229.79 Safari/537.4"
 			curl.enable_cookies = true
@@ -15,7 +15,6 @@ class HypeScraper
 			curl.timeout = 20
 		end
 
-		@directory = directory
 		@options = options
 	end
 
@@ -57,7 +56,7 @@ class HypeScraper
 	def get_mp3(track, url)
 		@curl.timeout = 120
 
-		file_dir = "#{@directory}/#{track['artist']} - #{track['song'].gsub('.', '')}.mp3"
+		file_dir = "#{@options[:directory]}/#{track['artist']} - #{track['song'].gsub('.', '')}.mp3"
 
 		File.open(file_dir, 'wb') do |file|
 			file.write(curl(url))
@@ -66,7 +65,7 @@ class HypeScraper
 		Mp3Info.open(file_dir) do |mp3|
 			mp3.tag.title = track["song"]
 			mp3.tag.artist = track["artist"]
-			mp3.tag.album = "Hype Machine"
+			mp3.tag.album = @options[:album]
 		end
 	end
 
@@ -88,33 +87,41 @@ class HypeScraper
 end
 
 # parameters
-options = {}
-opt = OptionParser.new do |o|
-	o.banner = "Usage: get-hyped [OPTION]... [PLAYLIST] [TARGET DIRECTORY]"
+options = Hash.new
+options[:dupes] = false
+options[:album] = "Hype Machine"
+options[:directory] = "mp3"
 
-	o.on("-d", "--dupes", "Download tracks even if they've already been downloaded") do 
+opt = OptionParser.new do |o|
+	o.banner = "Usage: get-hyped [OPTION]... [PLAYLIST]"
+
+	o.on("--dupes", "Download tracks even if they've already been downloaded") do 
 		options[:dupes] = true
+	end
+
+	o.on("-a", "--album [ALBUM]", String, "Specify the album MP3 tag for tracks being downloaded") do |s|
+		options[:album] = s
+	end
+
+	o.on("-d", "--dir [DIRECTORY]", String, "Specify the target directory") do |s|
+		options[:directory] = s
 	end
 end
 
 # parse parameters
 opt.parse!(ARGV)
-playlist, directory = ARGV[0..1]
-
-if (directory.nil? || directory.empty?) 
-	directory = "mp3"
-end
+playlist = ARGV[0]
 
 # do it
 begin
-	puts "Using target directory: #{directory}"
-	if (!File.directory?(directory))
-		Dir.mkdir(directory)
+	puts "Using target directory: #{options[:directory]}"
+	if (!File.directory?(options[:directory]))
+		Dir.mkdir(options[:directory])
 	end
 	FileUtils.touch("tracks.txt")
 	if (!playlist.nil?)
 		begin
-			HypeScraper.new(directory, options).get_from_playlist(playlist)
+			HypeScraper.new(options).get_from_playlist(playlist)
 		rescue Interrupt
 			puts "\nExiting..."
 		end
