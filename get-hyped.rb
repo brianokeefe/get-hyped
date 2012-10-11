@@ -21,7 +21,10 @@ class HypeScraper
 
 	def get_from_playlist(playlist)
 		begin
+      parseCount = 0
+      downCount = 0
 			get_track_list(playlist).each do |track|
+        parseCount += 1 
 				if not downloaded?(track["id"])
 					puts "Downloading: #{track['artist']} - #{track['song']}"
 
@@ -31,6 +34,7 @@ class HypeScraper
 						get_mp3(track, url)
 						add_to_downloaded(track["id"])
 						puts "   Success!"
+            downCount += 1
 					rescue
 						puts "   [ERROR] Couldn't download #{track['artist']} - #{track['song']}"
 					end
@@ -41,7 +45,11 @@ class HypeScraper
 		rescue
 			puts "Couldn't get specified playlist."
 		end
-			puts "Complete!"
+      if parseCount == 0
+        puts "Playlist is empty!"
+      else
+			  puts "Complete! Parsed #{parseCount}, Downloaded #{downCount}"
+      end
 	end
 
 	private
