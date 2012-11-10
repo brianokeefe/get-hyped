@@ -32,7 +32,7 @@ class HypeScraper
 						get_mp3(track, url)
 						add_to_downloaded(track["id"])
 						puts "   Success!"
-            downCount += 1
+						downCount += 1
 					rescue
 						puts "   [ERROR] Couldn't download #{track['artist']} - #{track['song']}"
 					end
