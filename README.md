@@ -16,6 +16,7 @@ Usage
         --dupes                      Download tracks even if they've already been downloaded
     -a, --album [ALBUM]              Specify the album MP3 tag for tracks being downloaded
     -d, --dir [DIRECTORY]            Specify the target directory
+    -l, --list [FILE]                Use a list of playlists
 
 <code>PLAYLIST</code> can be any playlist or username from hypem.com. Examples include:
 
@@ -30,14 +31,13 @@ Usage
 	<li>brianok/3</li>
 </ul>
 
-Note how the last example included a "/3" to indicate page 3 of the playlist (higher numbered pages contain older songs). For more playlists, you can take a look at the top navigation bar on hypem.com. 
+Note how the last example included a "/3" to indicate page 3 of the playlist (higher numbered pages contain older songs). For more playlists, you can take a look at the top navigation bar on hypem.com. With --list, multiple playlists can be provided via a text file. The text file should have one playlist per line.
 
 Once invoked, the script will attempt to download all of the MP3 files from the specified playlist into the specified target directory. A list of downloaded tracks will be maintained in <code>tracks.txt</code>; a track that has already been downloaded will not be downloaded again unless the <code>--dupes</code> argument is supplied.
 
 TODO
 ----
 <ul>
-	<li>Allow the user to specify multiple playlists
 	<li>Growl/email notifications</li>
 	<li>Logging</li>
 	<li>Adjustable timeout values</li>
