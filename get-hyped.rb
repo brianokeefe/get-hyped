@@ -97,6 +97,7 @@ options = Hash.new
 options[:dupes] = false
 options[:album] = "Hype Machine"
 options[:directory] = "mp3"
+options[:list] = false
 
 opt = OptionParser.new do |o|
 	o.banner = "Usage: get-hyped [OPTION]... [PLAYLIST]"
@@ -112,11 +113,23 @@ opt = OptionParser.new do |o|
 	o.on("-d", "--dir [DIRECTORY]", String, "Specify the target directory") do |s|
 		options[:directory] = s
 	end
+
+	o.on("-l", "--list [FILE]", String, "Use a list of playlists") do |s|
+		options[:list] = s
+	end
 end
 
 # parse parameters
 opt.parse!(ARGV)
-playlist = ARGV[0]
+if (!options[:list])
+	if (ARGV[0].nil?)
+		puts "Please specify a playlist."
+		Process.exit
+	end
+	playlists = [ARGV[0]]
+else
+	playlists = File.readlines(options[:list])
+end
 
 # do it
 begin
@@ -125,14 +138,12 @@ begin
 		Dir.mkdir(options[:directory])
 	end
 	FileUtils.touch("tracks.txt")
-	if (!playlist.nil?)
-		begin
+	begin
+		for playlist in playlists
 			HypeScraper.new(options).get_from_playlist(playlist)
-		rescue Interrupt
-			puts "\nExiting..."
 		end
-	else
-		puts "Please specify a playlist."
+	rescue Interrupt
+		puts "\nExiting..."
 	end
 rescue
 	puts "Could not write necessary files."
