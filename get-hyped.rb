@@ -56,7 +56,7 @@ class HypeScraper
 	end
 
 	def get_mp3_url(id, key)
-		JSON.parse(curl("http://hypem.com/serve/source/#{id}/#{key}?_=#{Time.now.to_i}"))["url"]
+		JSON.parse(curl("http://hypem.com/serve/source/#{id}/#{key}?_=#{Time.now.to_i}"))["url"].gsub(' ', '%20')
 	end
 
 	def get_mp3(track, url)
