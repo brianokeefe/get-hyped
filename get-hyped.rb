@@ -34,13 +34,13 @@ class HypeScraper
 						puts "   Success!"
 						downCount += 1
 					rescue
-						puts "   [ERROR] Couldn't download #{track['artist']} - #{track['song']}"
+						warn "   [ERROR] Couldn't download #{track['artist']} - #{track['song']}"
 					end
 					sleep 2
 				end
 			end
 		rescue
-			puts "Couldn't get specified playlist."
+			warn "Couldn't get specified playlist."
 		end
 		if parseCount == 0
 			puts "Playlist is empty!"
@@ -132,8 +132,8 @@ begin
 			puts "\nExiting..."
 		end
 	else
-		puts "Please specify a playlist."
+		warn "Please specify a playlist."
 	end
 rescue
-	puts "Could not write necessary files."
+	warn "Could not write necessary files."
 end
